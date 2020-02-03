@@ -1,0 +1,68 @@
+<% include ../partials/header %>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="../public/stylesheets/loginRegister.css" rel="stylesheet">
+<% if(user==null){ %>
+<% include ./loginRegister %>
+<%} else{ %>
+<!-- <h1><%=user%></h1> -->
+<!-- <div class="container"> -->
+    
+    <!-- <center>
+        <form style="padding: 10%" action="" id="searchPerson">
+            <input style="width:40%" type="text" value="" id="name" name="name">
+            <span>Search</span>
+        </form>
+    </center> -->
+    <ul id="users"></ul>
+    
+<!-- </div> -->
+<% include ./post %>
+
+<%}%>
+<% include ../partials/footer %>
+<!-- <script>
+    $('document').ready(function(){
+        $('#username').change(function(e){
+                console.log(e)
+        })
+    })
+    </script> -->
+<script> 
+// $(document).ready(function(){
+    $('#searchPerson').submit(function (e) {
+        console.log("yes")
+        e.preventDefault();
+        var fd = new FormData($(this)[0]);
+        sname = fd.get('sname')
+        // console.log(fd.has('name'))
+        fd.forEach(function(n){
+            console.log(n)
+        })
+        $.ajax({
+            url: '/search?name=' + sname,
+            type: 'GET',
+            success: function(data){
+                // users = document.getElementById('users')
+                // console.log(users)
+                // users.append(str)
+                // console.log(users.innerHTML)
+                $('#users').empty()
+                data.forEach(function(d){
+                    console.log(d)
+                    link = '/user/' + d.username
+                    var str = '<li><a href=' + link + '>' + d.username + '</a></li>'
+                    // str = '<li><a href="#">' + '</a>'
+                    // users.append('<li><a href="#">' + d.username + '</a></li>')
+                    // link = "/user/" + d.username
+                    // str = ''
+                    // str = "<li><a href='#'></a>hello</li>"
+                    $('#users').append(str)
+                })
+                // console.log(data);
+            }
+        });
+});
+// })
+</script>

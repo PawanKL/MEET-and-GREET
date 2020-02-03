@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+<style>
+    .container{
+       	height: 100%;
+       	align-content: center;
+       }
+
+       .image_outer_container{
+       	margin-top: auto;
+       	margin-bottom: auto;
+       	border-radius: 50%;
+       	position: relative;
+       }
+
+       .image_inner_container{
+       	border-radius: 50%;
+       	padding: 5px;
+        background: #833ab4; 
+        background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); 
+        background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+       }
+       .image_inner_container img{
+       	height: 200px;
+       	width: 200px;
+       	border-radius: 50%;
+       	border: 5px solid white;
+       }
+
+       .image_outer_container .green_icon{
+         background-color: #4cd137;
+         position: absolute;
+         right: 30px;
+         bottom: 10px;
+         height: 30px;
+         width: 30px;
+         border:5px solid white;
+         border-radius: 50%;
+       }
+</style>
+<div class="container" style="margin-top: 5%">
+        <form action="/profile" method="POST" enctype="multipart/form-data">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="image_outer_container">
+                        <div class="red_icon"></div>
+                            <div class="image_inner_container"> 
+                                <% img = "../upload/images/" + data.userImage%> 
+                                <img src="<%=img%>" alt="" onerror="this.onerror=null;this.src='../upload/images/s.jpeg';" id="userimg" >
+                            </div>
+                        </div>
+                    <input type="file" name="userimg" id="userimg">
+                    </div>
+                    <div class="card"style="width: 70rem; margin-top: 5%">
+                        <div class="card-body">
+                            <h5 class="card-title" id="uname" name="uname"><%=user%></h5>
+                            <textarea class="card-text" name="about" id="about" cols="60" rows="5" ><%=data.about%></textarea>
+                            <button type="submit" class="btn btn succes">Edit</button>
+                            <!-- <input type="text" value="<%=data.about%>">    -->
+                        </div>
+                    </div>
+        </form>
+</div>
+<% include ../partials/footer %>

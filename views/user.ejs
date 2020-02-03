@@ -1,0 +1,96 @@
+<% include ../partials/header %>
+<style>
+    .container{
+       	height: 100%;
+       	align-content: center;
+       }
+
+       .image_outer_container{
+       	margin-top: auto;
+       	margin-bottom: auto;
+       	border-radius: 50%;
+       	position: relative;
+       }
+
+       .image_inner_container{
+       	border-radius: 50%;
+       	padding: 5px;
+        background: #833ab4; 
+        background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4); 
+        background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+       }
+       .image_inner_container img{
+       	height: 200px;
+       	width: 200px;
+       	border-radius: 50%;
+       	border: 5px solid white;
+       }
+
+       .image_outer_container .green_icon{
+         background-color: #4cd137;
+         position: absolute;
+         right: 30px;
+         bottom: 10px;
+         height: 30px;
+         width: 30px;
+         border:5px solid white;
+         border-radius: 50%;
+       }
+</style>
+<div class="container" style="margin-top: 5%">
+		<div class="d-flex justify-content-center h-100">
+			<div class="image_outer_container">
+				<div class="red_icon"></div>
+				<div class="image_inner_container">
+					<img src="../upload/images/<%= profile.userImage %>" onerror="this.src='../upload/images/tony.jpeg'" alt="" >
+				</div>
+            </div>
+        </div>
+        <div class="card"style="width: 70rem; margin-top: 5%">
+                <div class="card-body">
+                    <h5 class="card-title" id="uname" name="uname"><%=profile.username%></h5>
+                    <p class="card-text" id="info" name="info" >With supporting text below as a natural lead-in to additional content.</p>
+                    <%if(user != profile.username) { %>
+                    <% str = "/chat/" + user + "."  + profile.username%>
+                    <p id="reciever" name></p>
+                    <form  id="followform">
+                        <input type="text" id="ufollow" name="ufollow" value="<%=profile.username%>" hidden>
+                    </form>
+                    <button type="button" class="btn btn-info" id="followbtn" name="followbtn">Follow</button>
+                    <a href="<%=str%>" class="btn btn-primary">Chat</a>
+                    <% } %>
+                    <input type="text" id="receiver" name="receiver" value="<%=profile.username%>" hidden>
+                    <input type="text" id="sender" name="sender"  value="<%=user%>" hidden>
+                </div>
+        </div>
+</div>
+<% include ../partials/footer %>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<!-- <script src="../js/sendrequest.js"></script> -->
+<script>
+$(document).ready(function(){
+    $('#followform').on('submit', function(e){
+        var fd = new FormData($(this)[0]);
+        user = fd.get('ufollow')
+        console.log('form')
+        console.log(user)
+        e.preventDefault()
+        $.ajax({
+            url:'/follow',
+            type: 'POST',
+            data: {
+                followto: user
+            },
+            success: function(){
+                console.log('following ---- ' +user)
+                $('#followbtn').html('Following')
+            }
+        })
+    })
+
+    $('#followbtn').on('click', function(e){
+        console.log('clicket')
+        $('#followform').submit()
+    })
+})
+</script>

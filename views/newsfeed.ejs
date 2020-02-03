@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+<% if(posts) { %>
+    <% var comments = ["Hello", "HI","Hello", "HI","Hello", "HI"] %>
+<div class="container">
+    <% posts.forEach((post)=>{ %>
+        <div class="card" style="width: 70rem; margin-top: 10%">
+            <div class="card-body">
+                <h3 class="card-title" id="uname">@<%=post.username%></h3>
+                <h5 class="card-title"><%=post.title%></h5>
+                <p class="card-text"><%=post.body%>.</p>
+                <!-- <a href="#" class="btn btn-primary">Like</a> -->
+                <div class="card-body">
+                       
+                </div>
+                <input type="text" id="from" name="from" value="<%=user%>" hidden>
+                <input type="text" id="pid" name="pid" value="<%=post._id%>" hidden>
+                <textarea class="card-text" name="" id="" cols="50" placeholder="Comment Here..."></textarea><br>
+                <button class="btn btn-primary" style="margin-top: 1%" id="likebtn" name="likebtn" >Like</button>
+                <button type="button" class="btn btn-info" style="margin-top: 1%" id="commentbtn">Comment</button>
+            </div>
+        </div>
+    <%})%>
+</div>
+<%}%>
+<% include ../partials/footer %>
+<script>
+    $(document).ready(function(){
+        $('#likebtn').on('click', function(e){
+            // e.preventDefault()
+            var from = $('#from').val()
+            console.log(from)
+            var postid = $('#pid').val()
+            e.preventDefault()
+            $.ajax({
+                url: '/like',
+                type: 'POST',
+                data: {
+                    from: from,
+                    id: postid
+                },
+                success: function(data){
+                    console.log(data)
+                }
+            })
+        })
+    })
+</script>
