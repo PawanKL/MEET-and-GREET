@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini Social App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css" rel="stylesheet">
+  </head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">PSherry</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/newsfeed">News Feed</a>
+            </li>
+            <!-- <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+              <div id="myDropdown" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                <a href="#about">About</a>
+                <a href="#base">Base</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+                <a href="#custom">Custom</a>
+                <a href="#support">Support</a>
+                <a href="#tools">Tools</a>
+              </div>
+            </div> -->
+            <%if(user) { %>
+            <form class="form-inline my-2 my-lg-0" action="" id="searchPerson">
+              <input class="form-control mr-sm-2" type="text" id="sname" name="sname" placeholder="Search People..." size="150px">
+              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <% } %>
+          </ul>
+          <% if(user){ %>
+            <% str = "/user/" + user %>
+            <ul class="navbar-nav my 2 mylg-2" id="#reload">
+                <% if(uData!=null && uData.totalRequest > 0) { %>
+                  <li class="nav-item active dropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Notifications<span><%=uData.totalRequest%></span></a>
+                      <!-- <span class="caret"></span>  -->
+                      <ul class="dropdown-menu">              
+                        <li>
+                          <div>
+                            <p>Pawan</p>
+                            <button class="btn btn-primary btn-sm" id="accept_button" >Accept</button>
+                            <button class="btn btn-primary btn-sm" id="cancel_button" >Cancel</button>
+                          </div>
+                        </li>
+                        <!-- <% s1 = "/user/" + user %> -->
+                        <!-- <li><a href="<%=s1 %>">My Profile</a</li> -->
+                      </ul> 
+                    </li>
+                  <%}%>  
+                
+              <li class="nav-item active">
+                <a class="nav-link" href="/profile">Hello, <%= user %></a>
+              </li>
+              <li class="nav-item active dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">More</a>
+                <span class="caret"></span></a> 
+                <ul class="dropdown-menu">              
+                  <li><a href="/logout">LogOut</a></li>
+                  <!-- <% s1 = "/user/" + user %> -->
+                  <!-- <li><a href="<%=s1 %>">My Profile</a</li> -->
+                </ul> 
+              </li>  
+            </ul>
+          <% } %>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+          <!-- <ul class="navbar-nav-right mr-sm-2">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><%=user%></a>
+            </li>
+          </ul> -->
+        </div>
+      </nav>
